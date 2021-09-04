@@ -26,16 +26,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1624473432,
-        "narHash": "sha256-D0HQiCGNnFhbHXABFG7s+jKnP2TdfTwAMBPo4uTysoA=",
-        "owner": "idris-lang",
+        "lastModified": 1630797033,
+        "narHash": "sha256-j3m8tCNmjdWUEXgrKbrvJ8WWrHoQrqVfsBeQ1kMpYgU=",
+        "owner": "teto",
         "repo": "Idris2",
-        "rev": "ea1ad1688f1e8ff275b229c733d691d0b1dbe107",
+        "rev": "6b7ebbcdb312034e7fcf89e9bc04e24c85dc4c72",
         "type": "github"
       },
       "original": {
-        "owner": "idris-lang",
-        "ref": "v0.4.0",
+        "owner": "teto",
+        "ref": "fix-flake",
         "repo": "Idris2",
         "type": "github"
       }

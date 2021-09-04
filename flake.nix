@@ -3,7 +3,7 @@
 
   inputs.flake-utils.url = github:numtide/flake-utils;
   inputs.idris = {
-    url = github:idris-lang/Idris2/v0.4.0;
+    url = github:teto/Idris2/fix-flake;
     inputs.nixpkgs.follows = "nixpkgs";
     inputs.flake-utils.follows = "flake-utils";
   };
@@ -13,25 +13,26 @@
       npkgs = import nixpkgs { inherit system; };
       idrisPkgs = idris.packages.${system};
       buildIdris = idris.buildIdris.${system};
-
-      replica = (buildIdris {
+      pkgs = buildIdris {
         projectName = "replica";
         src = ./.;
         idrisLibraries = [];
-      }).build.overrideAttrs (attrs: {
         patchPhase = ''
           # I haven't tested this, might have escaped incorrectly
           sed "s/\`git describe --tags\`/v0.4.0-${self.shortRev or "dirty"}/" -i Makefile
         '';
         # targets = "build";
-        buildPhase = ''
+        # preBuild=''
+        #   make src/Replica/Version.idr
+        # '';
+        preBuild = ''
           make
         '';
-      });
 
+      };
     in rec {
-      packages = replica // idrisPkgs;
-      defaultPackage = replica;
+      packages = pkgs // idrisPkgs;
+      defaultPackage = pkgs.build;
       devShell = npkgs.mkShell {
         buildInputs = [ idrisPkgs.idris2 npkgs.rlwrap ];
         shellHook = ''
