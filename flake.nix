@@ -14,16 +14,16 @@
       idrisPkgs = idris.packages.${system};
       buildIdris = idris.buildIdris.${system};
 
-      replica_ = buildIdris {
+      replica = (buildIdris {
         projectName = "replica";
         src = ./.;
         idrisLibraries = [];
-      };
-      replica = replica_.build.overrideAttrs (attrs: {
+      }).build.overrideAttrs (attrs: {
         patchPhase = ''
           # I haven't tested this, might have escaped incorrectly
           sed "s/\`git describe --tags\`/v0.4.0-${self.shortRev or "dirty"}/" -i Makefile
         '';
+        # targets = "build";
         buildPhase = ''
           make
         '';
